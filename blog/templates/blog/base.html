@@ -2,14 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>MY FUCKING BLOG!</title>
+        <title>MY FVCKING BLØG!</title>
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
         <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
     </head>
 
     <body>
+        {% if user.is_authenticated %}
+            <a href="{% url 'post_new' %}" class="top-menu">ADD POST</a>
+        {% endif %}
         <div class="page-header">
-            <h1><a href="/">MY FUCKING BLOG!</a></h1>
+            <h1><a href="/">MY FVCKING BLØG!</a></h1>
         </div>
 
         <div class="content container">

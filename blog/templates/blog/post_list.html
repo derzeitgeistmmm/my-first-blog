@@ -7,6 +7,7 @@
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text | linebreaksbr }}</p>
         </div>
+        <a href="{% url 'post_edit' pk=post.pk %}" class="top-menu">EDIT</a>
         <div class="published-date">
             <p>{{ post.published_date }}</p>
         </div>

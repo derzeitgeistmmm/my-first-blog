@@ -7,6 +7,7 @@
         <p>{{ post.text | linebreaksbr }}</p>
     </div>
     {% if post.published_date %}
+        <a href="{% url 'post_edit' pk=post.pk %}" class="top-menu">EDIT</a>
         <div class="published-date">
             <p>{{ post.published_date }}</p>
         </div>
