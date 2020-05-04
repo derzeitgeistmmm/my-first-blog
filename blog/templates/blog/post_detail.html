@@ -1,15 +1,45 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    {% if not post.published_date %}
+        <h2><a href="{% url 'post_drafts_list' %}">DRAFTS</a></h2>
+    {% endif %}
     <hr>
     <div class="post">
         <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
         <p>{{ post.text | linebreaksbr }}</p>
     </div>
+
     {% if post.published_date %}
-        <a href="{% url 'post_edit' pk=post.pk %}" class="top-menu">EDIT</a>
-        <div class="published-date">
-            <p>{{ post.published_date }}</p>
-        </div>
+            {% if user.is_authenticated %}
+                <div class="topnav">
+                    <a href="{% url 'post_edit' pk=post.pk %}">EDIT</a>
+                    <a href="{% url 'post_remove' pk=post.pk %}">DELETE</a>
+                </div>
+            {% endif %}
+            <div class="date">
+                <p>{{ post.published_date }}</p>
+            </div>
+    {% else %}
+            {% if user.is_authenticated %}
+            <div class="topnav">
+                <a href="{% url 'post_edit' pk=post.pk %}">EDIT</a>
+                <a href="{% url 'post_publish' pk=post.pk %}">PUBLISH</a>
+                <a href="{% url 'post_remove' pk=post.pk %}">DELETE</a>
+            </div>
+            {% endif %}
+            <div class="date">
+                <p><b>Created:</b> {{ post.created_date }}</p>
+            </div>
     {% endif %}
+    <hr>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text | linebreaks }}</p>
+            <div class="date">{{ comment.created_date }}</div>
+        </div>
+    {% empty %}
+        <p>No comments here yet...</p>
+    {% endfor %}
 {% endblock %}

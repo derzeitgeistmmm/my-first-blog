@@ -1,21 +1,22 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    <h2><a href="{% url 'post_drafts_list' %}">DRAFTS</a></h2>
     {% for post in posts %}
         <hr color=#beac62>
         <div class="post">
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p>{{ post.text | linebreaksbr | truncatechars:400 }}</p>
+            <p>{{ post.text | linebreaksbr | truncatechars:200 }}</p>
         </div>
         {% if user.is_authenticated %}
         <div class="topnav">
             <a href="{% url 'post_edit' pk=post.pk %}">EDIT</a>
+            <a href="{% url 'post_publish' pk=post.pk %}">PUBLISH</a>
             <a href="{% url 'post_remove' pk=post.pk %}">DELETE</a>
         </div>
         {% endif %}
-
-        <div class="published-date">
-            <p>{{ post.published_date }}</p>
+        <div class="date">
+            <p><b>Created:</b> {{ post.created_date }}</p>
         </div>
     {% endfor %}
 {% endblock %}

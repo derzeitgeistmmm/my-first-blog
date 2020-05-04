@@ -26,6 +26,10 @@ a {
     text-decoration: none;
 }
 
+.col-md-8 h2 a {
+    color: #beac62;
+}
+
 .page-header, .page-header h1 a {
     color: #beac62;
     letter-spacing: 1px;
@@ -38,6 +42,15 @@ a {
     color: #beac62;
     font-size: 16px;
     float: right;
+}
+
+.topnav a, .topnav a:hover, .topnav a:visited {
+    float: right;
+    color: #beac62;
+    font-size: 16px;
+    padding-right: 0;
+    padding-left: 20px;
+    text-decoration: none;
 }
 
 .post p, .post ul {
@@ -58,8 +71,13 @@ a {
 
 .post-form textarea, .post-form input {
     width: 100%;
+    font-size: 14;
 }
 
-.published-date {
+.date {
     color: #b5bdc9;
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
 }
