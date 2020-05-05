@@ -14,8 +14,10 @@
         </div>
         {% endif %}
 
-        <div class="published-date">
-            <p>{{ post.published_date }}</p>
+        <div class="post-info">
+            <p class="date">{{ post.published_date }}</p>
+            <a href={% url 'post_detail' pk=post.pk %}><b>Comments:</b></a>
+            <p>{{ post.approved_comments.count }}</p>
         </div>
     {% endfor %}
 {% endblock %}

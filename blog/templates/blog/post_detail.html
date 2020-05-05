@@ -32,14 +32,40 @@
                 <p><b>Created:</b> {{ post.created_date }}</p>
             </div>
     {% endif %}
-    <hr>
-    {% for comment in post.comments.all %}
-        <div class="comment">
-            <strong>{{ comment.author }}</strong>
-            <p>{{ comment.text | linebreaks }}</p>
-            <div class="date">{{ comment.created_date }}</div>
-        </div>
-    {% empty %}
-        <p>No comments here yet...</p>
-    {% endfor %}
+    <h2 class="add-comment"><a href="{% url 'add_comment_to_post' pk=post.pk %}">ADD COMMENT</a></h2>
+    {% if user.is_authenticated %}
+        {% for comment in post.comments.all %}
+                <hr>
+                <div class="comment">
+                    <strong>{{ comment.author }}</strong>
+                    <p>{{ comment.text | linebreaks }}</p>
+                    {% if not comment.approved_comment %}
+                        <div class="topnav">
+                            <a href="{% url 'comment_remove' pk=comment.pk %}">REMOVE</a>
+                            <a href="{% url 'comment_approve' pk=comment.pk %}">APPROVE</a>
+                        </div>
+                    {% else %}
+                        <div class="topnav">
+                            <a href="{% url 'comment_remove' pk=comment.pk %}">REMOVE</a>
+                        </div>
+                    {% endif %}
+                    <div class="date">{{ comment.created_date }}</div>
+                </div>
+        {% empty %}
+            <hr>
+            <p>No comments here yet...</p>
+        {% endfor %}
+    {% else %}
+        {% for comment in post.approved_comments %}
+            <hr>
+            <div class="comment">
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.text | linebreaks }}</p>
+                <div class="date">{{ comment.created_date }}</div>
+            </div>
+        {% empty %}
+            <hr>
+            <p>No comments here yet...</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
